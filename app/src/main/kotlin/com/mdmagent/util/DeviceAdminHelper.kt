@@ -115,6 +115,28 @@ object DeviceAdminHelper {
         }
     }
 
+    /**
+     * Locks the VPN so the user can't turn it off from Settings. DISALLOW_CONFIG_VPN
+     * blocks the VPN settings UI (including the always-on toggle and disconnect),
+     * so only this app (as Device Owner) can change it. No effect without Device
+     * Owner — a non-owner install can't prevent the user disconnecting.
+     */
+    fun setVpnConfigLocked(context: Context, locked: Boolean): Boolean {
+        if (!isDeviceOwner(context)) return false
+        return try {
+            val dpm = getDpm(context); val admin = getAdmin(context)
+            if (locked) dpm.addUserRestriction(admin, UserManager.DISALLOW_CONFIG_VPN)
+            else dpm.clearUserRestriction(admin, UserManager.DISALLOW_CONFIG_VPN)
+            true
+        } catch (e: Exception) {
+            Log.e(TAG, "setVpnConfigLocked failed: ${e.message}")
+            false
+        }
+    }
+
+    fun isVpnConfigLocked(context: Context) =
+        hasRestriction(context, UserManager.DISALLOW_CONFIG_VPN)
+
     // ─── Security toggles ─────────────────────────────────────────────────────
 
     fun disableDeveloperOptions(context: Context) {

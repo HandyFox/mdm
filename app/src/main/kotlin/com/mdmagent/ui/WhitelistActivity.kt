@@ -70,8 +70,11 @@ class WhitelistActivity : AppCompatActivity() {
         PolicyPrefs.setWhitelistEnabled(this, true)
         // Device Owner: always-on VPN auto-grants consent and auto-restarts.
         if (DeviceAdminHelper.setAlwaysOnVpn(this, true)) {
+            // Lock it so the user can't disconnect it from Settings.
+            DeviceAdminHelper.setVpnConfigLocked(this, true)
             MdmVpnService.start(this)
-            toast("Web filter enabled")
+            toast(if (DeviceAdminHelper.isVpnConfigLocked(this))
+                "Web filter enabled & locked" else "Web filter enabled")
             return
         }
         // Otherwise request the one-time VPN consent.
@@ -82,6 +85,8 @@ class WhitelistActivity : AppCompatActivity() {
 
     private fun disableFilter() {
         PolicyPrefs.setWhitelistEnabled(this, false)
+        // Unlock first (admin API still works while locked), then tear down.
+        DeviceAdminHelper.setVpnConfigLocked(this, false)
         DeviceAdminHelper.setAlwaysOnVpn(this, false)
         MdmVpnService.stop(this)
         toast("Web filter disabled")

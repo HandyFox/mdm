@@ -69,6 +69,10 @@ class UnenrollActivity : AppCompatActivity() {
             val dpm = getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager
             val admin = ComponentName(this, MdmAdminReceiver::class.java)
 
+            // Release the VPN lock / always-on so nothing is left stranded.
+            com.mdmagent.util.DeviceAdminHelper.setVpnConfigLocked(this, false)
+            com.mdmagent.util.DeviceAdminHelper.setAlwaysOnVpn(this, false)
+
             // Clear all restrictions before removing Device Owner
             dpm.clearUserRestriction(admin, UserManager.DISALLOW_FACTORY_RESET)
             dpm.clearUserRestriction(admin, UserManager.DISALLOW_SAFE_BOOT)

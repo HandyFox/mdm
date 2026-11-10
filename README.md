@@ -37,7 +37,9 @@ devices** (full D-pad / hardware-key navigation) and on **small screens**.
 - **Per-app bypass**: pick apps that are routed *around* the whitelist and keep
   full internet access (`addDisallowedApplication`).
 - On a Device Owner the filter is set as an **always-on VPN** (no consent prompt,
-  auto-restart after reboot). Otherwise the standard one-time VPN consent is used.
+  auto-restart after reboot) and **locked** (`DISALLOW_CONFIG_VPN`) so the user
+  can't disconnect or change it from Settings. Otherwise the standard one-time
+  VPN consent is used (and can't be locked without Device Owner).
 - Optional **activity log** of allowed/blocked domains.
 
 ### Kyocera & Device Controls
