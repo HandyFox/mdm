@@ -249,8 +249,12 @@ object DeviceAdminHelper {
         }
     }
 
-    fun isScreenLockDisabled(context: Context): Boolean = try {
-        val km = context.getSystemService(Context.KEYGUARD_SERVICE) as android.app.KeyguardManager
-        !km.isDeviceSecure
-    } catch (e: Exception) { false }
+    fun isScreenLockDisabled(context: Context): Boolean {
+        return try {
+            val km = context.getSystemService(Context.KEYGUARD_SERVICE) as android.app.KeyguardManager
+            km.isDeviceSecure.not()
+        } catch (e: Exception) {
+            false
+        }
+    }
 }
