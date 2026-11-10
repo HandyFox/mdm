@@ -89,8 +89,13 @@ Most enforcement (app hiding, hotspot/factory-reset restrictions, always-on VPN,
 Kyocera OEMConfig, screen-lock removal) requires **Device Owner**. After a
 factory reset, before adding any account:
 ```bash
-adb shell dpm set-device-owner com.mdmagent/.receiver.MdmAdminReceiver
+adb shell dpm set-device-owner com.mdmagent.device/com.mdmagent.receiver.MdmAdminReceiver
 ```
+> Note the component string: the package is `com.mdmagent.device` (the
+> `applicationId`) while the receiver class is `com.mdmagent.receiver.MdmAdminReceiver`
+> (the `namespace`). Use the full class path — the `/.receiver.…` shorthand
+> expands against the package and resolves to the wrong class ("Unknown admin").
+> Device Owner also requires a device with **no accounts added** and a single user.
 Or provision via QR (`qr_params.txt` holds the checksums — **regenerate these
 for each newly-built APK**, since the signature/package checksums change).
 
