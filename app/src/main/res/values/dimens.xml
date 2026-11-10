@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_sm">8dp</dimen>
+    <dimen name="space_md">12dp</dimen>
+    <dimen name="space_lg">16dp</dimen>
+    <dimen name="space_xl">24dp</dimen>
+    <dimen name="space_xxl">32dp</dimen>
+
+    <dimen name="screen_gutter">16dp</dimen>
+    <dimen name="card_radius">16dp</dimen>
+    <dimen name="card_stroke">1dp</dimen>
+    <dimen name="row_min_height">64dp</dimen>
+
+    <dimen name="text_title">22sp</dimen>
+    <dimen name="text_section">12sp</dimen>
+    <dimen name="text_body">15sp</dimen>
+    <dimen name="text_caption">12sp</dimen>
+    <dimen name="text_mono">12sp</dimen>
+
+    <!-- Caps the content column so phone layouts don't stretch on tablets -->
+    <dimen name="content_max_width">640dp</dimen>
+</resources>

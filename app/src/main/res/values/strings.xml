@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Device Manager</string>
+    <string name="admin_label">Device Manager Admin</string>
+    <string name="admin_description">Allows Device Manager to enforce security policies on this device.</string>
+    <string name="managed_notice">This device is being managed by Device Manager. Security policies are enforced.</string>
+</resources>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/Widget.Mdm.Toolbar"
+        app:title="Device Manager"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_gutter">
+
+            <!-- Status card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:padding="@dimen/space_lg"
+                android:layout_marginBottom="@dimen/space_lg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DEVICE STATUS"
+                    style="@style/Text.Section"
+                    android:layout_marginTop="0dp"/>
+
+                <TextView
+                    android:id="@+id/tv_admin_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    style="@style/Text.Body"
+                    tools:text="Device Owner (Full Control)"/>
+
+                <TextView
+                    android:id="@+id/tv_filter_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    style="@style/Text.Caption"
+                    tools:text="Web filter: Off"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_activate_admin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_md"
+                    android:text="Activate Device Administrator"
+                    style="@style/Button.Primary"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MANAGEMENT"
+                style="@style/Text.Section"/>
+
+            <!-- Nav cards -->
+            <LinearLayout
+                android:id="@+id/card_apps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_setting_row"
+                android:focusable="true"
+                android:clickable="true"
+                android:minHeight="@dimen/row_min_height"
+                android:padding="@dimen/space_lg"
+                android:layout_marginBottom="@dimen/space_sm">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                    android:src="@drawable/ic_apps" android:layout_marginEnd="@dimen/space_md"
+                    app:tint="@color/primary" tools:ignore="ContentDescription"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="App Manager"
+                    android:textColor="@color/text_primary" android:textSize="16sp"/>
+                <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" app:tint="@color/text_hint"
+                    tools:ignore="ContentDescription"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/card_whitelist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_setting_row"
+                android:focusable="true"
+                android:clickable="true"
+                android:minHeight="@dimen/row_min_height"
+                android:padding="@dimen/space_lg"
+                android:layout_marginBottom="@dimen/space_sm">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                    android:src="@drawable/ic_globe" android:layout_marginEnd="@dimen/space_md"
+                    app:tint="@color/primary" tools:ignore="ContentDescription"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="Web Whitelist (VPN)"
+                    android:textColor="@color/text_primary" android:textSize="16sp"/>
+                <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" app:tint="@color/text_hint"
+                    tools:ignore="ContentDescription"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/card_security"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_setting_row"
+                android:focusable="true"
+                android:clickable="true"
+                android:minHeight="@dimen/row_min_height"
+                android:padding="@dimen/space_lg"
+                android:layout_marginBottom="@dimen/space_sm">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                    android:src="@drawable/ic_security" android:layout_marginEnd="@dimen/space_md"
+                    app:tint="@color/primary" tools:ignore="ContentDescription"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="Security Settings"
+                    android:textColor="@color/text_primary" android:textSize="16sp"/>
+                <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" app:tint="@color/text_hint"
+                    tools:ignore="ContentDescription"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/card_oem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_setting_row"
+                android:focusable="true"
+                android:clickable="true"
+                android:minHeight="@dimen/row_min_height"
+                android:padding="@dimen/space_lg"
+                android:layout_marginBottom="@dimen/space_sm">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                    android:src="@drawable/ic_chip" android:layout_marginEnd="@dimen/space_md"
+                    app:tint="@color/primary" tools:ignore="ContentDescription"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Kyocera &amp; Device Controls"
+                        android:textColor="@color/text_primary" android:textSize="16sp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="OEM plugin, screen lock, touchscreen"
+                        style="@style/Text.Caption"/>
+                </LinearLayout>
+                <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" app:tint="@color/text_hint"
+                    tools:ignore="ContentDescription"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/card_lock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_setting_row"
+                android:focusable="true"
+                android:clickable="true"
+                android:minHeight="@dimen/row_min_height"
+                android:padding="@dimen/space_lg"
+                android:layout_marginBottom="@dimen/space_sm">
+                <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                    android:src="@drawable/ic_lock" android:layout_marginEnd="@dimen/space_md"
+                    app:tint="@color/primary" tools:ignore="ContentDescription"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="Lock Device Now"
+                    android:textColor="@color/text_primary" android:textSize="16sp"/>
+                <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" app:tint="@color/text_hint"
+                    tools:ignore="ContentDescription"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="This device is managed by Device Manager. Security policies are enforced to protect it."
+                style="@style/Text.Caption"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/space_lg"
+                android:padding="@dimen/space_sm"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

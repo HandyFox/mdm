@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/Widget.Mdm.Toolbar"
+        app:title="Web Whitelist"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_gutter">
+
+            <com.mdmagent.ui.widget.SettingRow android:id="@+id/row_enable"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:rowTitle="Enable web whitelist"
+                app:rowSubtitle="Blocks ALL web traffic except the domains below"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enforced by a local VPN. Subdomains of each entry are allowed automatically (e.g. example.com also allows www.example.com)."
+                style="@style/Text.Caption"
+                android:layout_marginTop="@dimen/space_xs"/>
+
+            <TextView style="@style/Text.Section" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="Allowed Domains"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_domain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="example.com"
+                    style="@style/Input.Outlined">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_domain"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary"
+                        android:imeOptions="actionDone"
+                        android:maxLines="1"
+                        android:inputType="textUri"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_add_domain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_sm"
+                    android:text="Add"
+                    style="@style/Button.Primary"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_domains"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/space_sm"/>
+
+            <TextView
+                android:id="@+id/tv_domains_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No domains yet. While the whitelist is on with an empty list, all web traffic is blocked."
+                style="@style/Text.Caption"
+                android:layout_marginTop="@dimen/space_sm"/>
+
+            <TextView style="@style/Text.Section" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="App Bypass"/>
+
+            <LinearLayout
+                android:id="@+id/row_bypass_apps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_setting_row"
+                android:focusable="true"
+                android:clickable="true"
+                android:minHeight="@dimen/row_min_height"
+                android:padding="@dimen/space_lg">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Apps that bypass the filter"
+                        android:textColor="@color/text_primary" android:textSize="15sp"/>
+                    <TextView android:id="@+id/tv_bypass_count"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        style="@style/Text.Caption" tools:text="0 apps selected"/>
+                </LinearLayout>
+                <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right" app:tint="@color/text_hint"
+                    tools:ignore="ContentDescription"/>
+            </LinearLayout>
+
+            <TextView style="@style/Text.Section" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="Activity Log"/>
+
+            <com.mdmagent.ui.widget.SettingRow android:id="@+id/row_logging"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_sm"
+                app:rowTitle="Log filter decisions"
+                app:rowSubtitle="Record allowed / blocked domains"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_refresh_log"
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="Refresh"
+                    style="@style/Button.Outline"
+                    android:layout_marginEnd="@dimen/space_sm"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_clear_log"
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="Clear"
+                    style="@style/Button.Outline"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md"
+                android:background="@drawable/bg_card"
+                android:padding="@dimen/space_md"
+                android:fontFamily="monospace"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:text="No activity yet."/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

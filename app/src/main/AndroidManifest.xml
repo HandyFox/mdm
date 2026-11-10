@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions"/>
+
+    <!-- Must run on non-touch and TV-style hardware too -->
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
+    <uses-feature android:name="android.hardware.type.television" android:required="false"/>
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Device Manager"
+        android:theme="@style/Theme.MdmAgent"
+        android:hardwareAccelerated="true">
+
+        <!-- Launcher: password gate (first-run setup or login) -->
+        <activity
+            android:name=".ui.PasswordGateActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.MainActivity" android:exported="false"/>
+        <activity android:name=".ui.AppManagerActivity" android:exported="false"/>
+        <activity android:name=".ui.WhitelistActivity" android:exported="false"/>
+        <activity android:name=".ui.BypassAppsActivity" android:exported="false"/>
+        <activity android:name=".ui.SecurityActivity" android:exported="false"/>
+        <activity android:name=".ui.OemConfigActivity" android:exported="false"/>
+        <activity android:name=".ui.ChangePasswordActivity" android:exported="false"/>
+        <activity android:name=".ui.UnenrollActivity" android:exported="false"/>
+
+        <!-- Shown after Device Owner QR provisioning completes -->
+        <activity
+            android:name=".ui.ProvisioningCompleteActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MdmAgent">
+            <intent-filter>
+                <action android:name="android.app.action.PROVISIONING_SUCCESSFUL"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Intercepts "set a screen lock" when lockdown is engaged -->
+        <activity
+            android:name=".ui.ScreenLockBlockerActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter android:priority="999">
+                <action android:name="android.app.action.SET_NEW_PASSWORD"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Device Admin receiver -->
+        <receiver
+            android:name=".receiver.MdmAdminReceiver"
+            android:description="@string/admin_description"
+            android:label="@string/admin_label"
+            android:permission="android.permission.BIND_DEVICE_ADMIN"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_policies"/>
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+                <action android:name="android.app.action.DEVICE_ADMIN_DISABLED"/>
+                <action android:name="android.app.action.DEVICE_ADMIN_DISABLE_REQUESTED"/>
+                <action android:name="android.app.action.PROFILE_PROVISIONING_COMPLETE"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receiver.BootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- Whitelist firewall (VpnService) -->
+        <service
+            android:name=".service.MdmVpnService"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:foregroundServiceType="systemExempted"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.VpnService"/>
+            </intent-filter>
+        </service>
+
+        <!-- Touchscreen overlay blocker -->
+        <service
+            android:name=".service.TouchBlockerService"
+            android:foregroundServiceType="systemExempted"
+            android:exported="false"/>
+
+    </application>
+</manifest>

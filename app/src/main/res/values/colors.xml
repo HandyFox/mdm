@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ── Modern dark palette ───────────────────────────────────────── -->
+    <color name="bg">#0E1420</color>
+    <color name="bg_elevated">#141B2A</color>
+    <color name="surface">#1B2436</color>
+    <color name="surface_variant">#222C40</color>
+    <color name="surface_pressed">#2C3850</color>
+
+    <color name="primary">#4F8CFF</color>
+    <color name="primary_dim">#36599E</color>
+    <color name="on_primary">#FFFFFF</color>
+
+    <color name="success">#33C48D</color>
+    <color name="danger">#FF5C6C</color>
+    <color name="warn">#FFB454</color>
+
+    <color name="text_primary">#E8EDF7</color>
+    <color name="text_secondary">#93A0B8</color>
+    <color name="text_hint">#5C6882</color>
+    <color name="divider">#263248</color>
+
+    <color name="switch_track_off">#3A4660</color>
+    <color name="focus_ring">#4F8CFF</color>
+
+    <!-- ── Back-compat aliases (older code referenced these names) ─────── -->
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF5C6C</color>
+    <color name="green">#33C48D</color>
+    <color name="card_bg">#1B2436</color>
+    <color name="bg_dark">#0E1420</color>
+    <color name="accent_blue">#4F8CFF</color>
+    <color name="switch_on">#4F8CFF</color>
+    <color name="status_bar">#0B101A</color>
+</resources>

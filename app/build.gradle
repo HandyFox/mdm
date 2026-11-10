@@ -1,0 +1,96 @@
+import java.security.MessageDigest
+import java.security.cert.CertificateFactory
+import java.util.Base64
+import java.util.jar.JarFile
+
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.mdmagent'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.mdmagent.device"
+        minSdk 22
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    signingConfigs {
+        debug {
+            // Using default debug signing configuration
+        }
+    }
+
+    buildTypes {
+        release {
+            // Use the debug signing config for release for testing purposes
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+    implementation 'androidx.biometric:biometric:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+}
+
+task getDebugHash {
+    doLast {
+        def debugKeystore = android.signingConfigs.debug.storeFile
+        if (debugKeystore == null || !debugKeystore.exists()) {
+            println "Debug keystore not found."
+            return
+        }
+
+        // We can't easily extract the hash from the .keystore file without keytool or a library
+        // but we can try to find a signed debug APK
+        def debugApk = file("build/outputs/apk/debug/app-debug.apk")
+        if (debugApk.exists()) {
+             JarFile jar = new JarFile(debugApk)
+             def entry = jar.entries().find { it.name.startsWith("META-INF/") && (it.name.endsWith(".RSA") || it.name.endsWith(".DSA") || it.name.endsWith(".EC")) }
+             if (entry != null) {
+                def certFactory = CertificateFactory.getInstance("X.509")
+                def certs = certFactory.generateCertificates(jar.getInputStream(entry))
+                def cert = certs.iterator().next()
+                def certHash = MessageDigest.getInstance("SHA-256").digest(cert.getEncoded())
+                def signatureBase64 = Base64.getUrlEncoder().withoutPadding().encodeToString(certHash)
+                println "DEBUG_SIGNATURE_HASH: " + signatureBase64
+             }
+             jar.close()
+        } else {
+            println "Please run assembleDebug first."
+        }
+    }
+}

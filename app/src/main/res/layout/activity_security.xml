@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/Widget.Mdm.Toolbar"
+        app:title="Security Settings"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_gutter">
+
+            <TextView
+                android:id="@+id/tv_admin_mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill"
+                android:paddingHorizontal="@dimen/space_lg"
+                android:paddingVertical="@dimen/space_md"
+                style="@style/Text.Caption"
+                tools:text="Device Owner — all restrictions available"/>
+
+            <TextView style="@style/Text.Section" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="App Installation"/>
+
+            <com.mdmagent.ui.widget.SettingRow android:id="@+id/row_block_install"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_sm"
+                app:rowTitle="Block all app installation"
+                app:rowSubtitle="Play Store and APK sideloading"/>
+
+            <com.mdmagent.ui.widget.SettingRow android:id="@+id/row_block_unknown"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_sm"
+                app:rowTitle="Block unknown sources"
+                app:rowSubtitle="APK sideloading only"/>
+
+            <TextView style="@style/Text.Section" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="Developer &amp; Debug"/>
+
+            <com.mdmagent.ui.widget.SettingRow android:id="@+id/row_disable_dev"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_sm"
+                app:rowTitle="Disable Developer Options &amp; ADB"
+                app:rowSubtitle="Blocks USB debugging and dev tools"/>
+
+            <com.mdmagent.ui.widget.SettingRow android:id="@+id/row_safe_boot"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_sm"
+                app:rowTitle="Disable Safe Boot"
+                app:rowSubtitle="Requires Device Owner"/>
+
+            <TextView style="@style/Text.Section" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="Device"/>
+
+            <com.mdmagent.ui.widget.SettingRow android:id="@+id/row_camera"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_sm"
+                app:rowTitle="Disable Camera"
+                app:rowSubtitle="Block all camera use"/>
+
+            <com.mdmagent.ui.widget.SettingRow android:id="@+id/row_screenshot"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_sm"
+                app:rowTitle="Disable Screenshots"
+                app:rowSubtitle="Requires Device Owner"/>
+
+            <com.mdmagent.ui.widget.SettingRow android:id="@+id/row_hotspot"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_sm"
+                app:rowTitle="Block mobile hotspot"
+                app:rowSubtitle="Disables Wi-Fi / USB / Bluetooth tethering"/>
+
+            <com.mdmagent.ui.widget.SettingRow android:id="@+id/row_factory_reset"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_sm"
+                app:rowTitle="Block Factory Reset"
+                app:rowSubtitle="Device Owner — irreversible without unenroll"/>
+
+            <TextView style="@style/Text.Section" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="Anti-Wipe"/>
+
+            <com.mdmagent.ui.widget.SettingRow android:id="@+id/row_wipe_guard"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_sm"
+                app:rowTitle="Prevent wipe on wrong PIN"
+                app:rowSubtitle="Sets failed-unlock attempts impossibly high"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Note: some OEM firmware (incl. certain Kyocera builds) enforce a failed-unlock wipe below Android. If that applies, disable the screen lock under Kyocera &amp; Device Controls so there is no PIN to fail."
+                style="@style/Text.Caption"
+                android:layout_marginTop="@dimen/space_xs"
+                android:layout_marginBottom="@dimen/space_md"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_lock_now"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lock Device Now"
+                style="@style/Button.Outline"
+                android:layout_marginTop="@dimen/space_sm"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

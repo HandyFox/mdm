@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SettingRow">
+        <attr name="rowTitle" format="string"/>
+        <attr name="rowSubtitle" format="string"/>
+        <attr name="rowIcon" format="reference"/>
+    </declare-styleable>
+</resources>
